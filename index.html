@@ -65,6 +65,8 @@ let score = 0;
 let lives_txt;
 let score_txt;
 
+let change_dir = false;
+
 function checkBounds (car){
 	if(car.flipX == false && car.x-offset_x < 0)
 		car.x = game_w-offset_x;
@@ -81,6 +83,8 @@ function preload(){
 }
 
 function create(){
+
+	change_dir = false;
 
 	bg_image = this.add.image(game_w/2,game_h/2,"background");
 
@@ -148,6 +152,17 @@ function update(){
 	checkBounds(car2_img);
 	checkBounds(car3_img);
 	checkBounds(car4_img);
+
+	if (change_dir == false && player_img.y > 550){
+		score++;
+		score_txt.text = score.toString();
+		change_dir = true;
+	}
+	else if (change_dir == true && player_img.y < 50){
+		score++;
+		score_txt.text = score.toString();
+		change_dir = false;
+	}
 }
 
 
@@ -167,7 +182,8 @@ function reset (){
 
 	car4_img.x = game_w-offset_x;
 	car4_img.y = road4_y;
-
+	
+	change_dir = false;
 }
 
 </script>
